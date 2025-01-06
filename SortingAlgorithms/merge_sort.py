@@ -24,5 +24,6 @@ def merge(left_sorted: list[int | None], right_sorted: list[int | None]) -> list
 
 
 if __name__ == "__main__":
+    print(merge_sort([]))
     print(merge_sort([23, 42, 1337, 98, 1]))
     print(merge_sort([23, 42, 1337, 98, 1, 75]))

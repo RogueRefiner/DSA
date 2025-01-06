@@ -14,6 +14,9 @@ def counting_sort_default_dict(array_to_sort: list[any]) -> list[any]:
 
 
 def counting_sort(array_to_sort: list[int]) -> list[int]:
+    if len(array_to_sort) == 0:
+        return array_to_sort
+
     count_array = [0 for _ in range(max(array_to_sort))]
     sorted_array = []
     for num in array_to_sort:
@@ -25,6 +28,9 @@ def counting_sort(array_to_sort: list[int]) -> list[int]:
 
 
 if __name__ == "__main__":
+    print(counting_sort_default_dict([]))
+    print(counting_sort([]))
+
     print(counting_sort_default_dict([2, 3, 10, 2, 7, 4, 7, 7]))
     print(counting_sort([2, 3, 10, 2, 7, 4, 7, 7]))
 

@@ -31,6 +31,9 @@ if __name__ == "__main__":
     print(counting_sort_default_dict([]))
     print(counting_sort([]))
 
+    print(counting_sort_default_dict([2]))
+    print(counting_sort([2]))
+
     print(counting_sort_default_dict([2, 3, 10, 2, 7, 4, 7, 7]))
     print(counting_sort([2, 3, 10, 2, 7, 4, 7, 7]))
 

@@ -15,4 +15,5 @@ def bubble_sort(array_to_sort: list[int]) -> list[int]:
 
 if __name__ == "__main__":
     print(bubble_sort([]))
+    print(bubble_sort([2]))
     print(bubble_sort([45, 18, 42, 99, 10, 7, 96, 130, 75]))

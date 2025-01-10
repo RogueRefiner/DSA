@@ -9,7 +9,6 @@ public class LinkedList {
     public LinkedList(){
     }
 
-
     public Node getHeadNode() {
         return this.head;
     }
@@ -76,7 +75,7 @@ public class LinkedList {
 
     public boolean deleteValue(int valueToCheck) throws InvalidNodeException {
         if (this.checkIsEmpty()) {
-            throw new InvalidNodeException("The LinkedList is empty. There is no node to delete");
+            throw new InvalidNodeException("The LinkedList is empty. There is no node to delete.");
         }
 
         Node currentNode = this.head;
@@ -97,9 +96,9 @@ public class LinkedList {
 
     public void deleteIndex(int index) throws InvalidIndexException, InvalidNodeException {
         if (this.checkIsEmpty()) {
-            throw new InvalidNodeException("The LinkedList is empty. There is no index to delete");
+            throw new InvalidNodeException("The LinkedList is empty. There is no index to delete.");
         } else if (index >= this.getSize()) {
-            throw new InvalidIndexException(String.format("Index %d out of range", index));
+            throw new InvalidIndexException(String.format("Index %d out of range.", index));
         }
         
         if (index == 0){
@@ -122,6 +121,11 @@ public class LinkedList {
             return false;
         }
         Node currentNode = this.head;
+
+        if(currentNode.getValue() == valueToCheck){
+            return true;
+        }
+
         while(currentNode.getNextNode() != null) {
             currentNode = currentNode.getNextNode();
             if (currentNode.getValue() == valueToCheck) {
@@ -155,7 +159,7 @@ public class LinkedList {
 
     public Node getLast() throws InvalidNodeException {
         if (this.checkIsEmpty()) {
-            throw new InvalidNodeException("The LinkedList is empty. There is no last node");
+            throw new InvalidNodeException("The LinkedList is empty. There is no last node.");
         } else if (this.getSize() == 1){
             return this.head;
         } else {
@@ -169,7 +173,7 @@ public class LinkedList {
 
     public Node getNodeAtIndex(int index) throws InvalidIndexException {
         if (this.checkIsEmpty() || index >= this.getSize() ) {
-            throw new InvalidIndexException(String.format("Index %d is out of range", index));
+            throw new InvalidIndexException(String.format("Index %d is out of range.", index));
         }
         Node currentNode = this.head;
         for (int i = 0; i <= index; i++){

@@ -44,9 +44,7 @@ public class Stack<T> {
                 return this.stack.size() - 1 - i;
             }
         }
-
         return pos;
-
     }
 
     @Override

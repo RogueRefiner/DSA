@@ -2,6 +2,7 @@ import gleam/bool
 import gleam/int
 import gleam/io
 import gleam/string
+import recursive
 
 pub fn sum(list: List(Int), total: Int) -> Int {
   case list {
@@ -211,4 +212,33 @@ pub fn main() {
 
   io.debug("iterate_over_nested_lists: ")
   iterate_over_nested_lists(nested_list)
+
+  io.debug("The recursive book of recursion:")
+  io.debug(
+    "Chapter 2: Factorial: " <> int.to_string(recursive.ch2_factorial(5)),
+  )
+
+  io.debug(
+    "Chapter 2: Sum Series: " <> int.to_string(recursive.ch2_sum_series(5)),
+  )
+
+  io.debug(
+    "Chapter 2: 2**3: "
+    <> int.to_string(recursive.ch2_sum_powers_of_2(3))
+    <> " 2**2: "
+    <> int.to_string(recursive.ch2_sum_powers_of_2(2))
+    <> " 2**1: "
+    <> int.to_string(recursive.ch2_sum_powers_of_2(1)),
+  )
+
+  io.debug(
+    "Chapter 3: Concat: " <> recursive.ch3_concat(["Hello", "World", "!"]),
+  )
+
+  io.debug(
+    "Chapter 3: Product: Empty List: "
+    <> int.to_string(recursive.ch3_product([]))
+    <> " Non Empty List: "
+    <> int.to_string(recursive.ch3_product([2, 3, 4, 10])),
+  )
 }

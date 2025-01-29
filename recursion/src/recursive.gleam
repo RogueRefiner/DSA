@@ -61,3 +61,57 @@ fn product_loop(int_list: List(Int), aggregator: Int) -> Int {
     [head, ..tail] -> product_loop(tail, aggregator * head)
   }
 }
+
+pub fn ch4_reverse_inorder_traverse(tree: Tree) {
+  case tree {
+    Leaf -> ""
+    Branch(root, left, right) -> {
+      ch4_reverse_inorder_traverse(right)
+      io.debug(int.to_string(root))
+      ch4_reverse_inorder_traverse(left)
+    }
+  }
+}
+
+pub fn ch4_add_one_depthlevel_in_tree(tree: Tree) {
+  case tree {
+    Leaf -> Branch(-1, Leaf, Leaf)
+    Branch(root, left, right) -> {
+      Branch(
+        root,
+        ch4_add_one_depthlevel_in_tree(left),
+        ch4_add_one_depthlevel_in_tree(right),
+      )
+    }
+  }
+}
+
+pub type Tree {
+  Leaf
+  Branch(root: Int, left: Tree, right: Tree)
+}
+
+pub fn insert(tree: Tree, value: Int) -> Tree {
+  case tree {
+    Leaf -> Branch(value, Leaf, Leaf)
+    Branch(root, left, right) ->
+      case value < root {
+        True -> Branch(root, insert(left, value), right)
+        False -> Branch(root, left, insert(right, value))
+      }
+  }
+}
+
+pub fn to_string_tree(tree: Tree) -> String {
+  case tree {
+    Leaf -> "Leaf"
+    Branch(root, left, right) ->
+      "Node("
+      <> int.to_string(root)
+      <> ", "
+      <> to_string_tree(left)
+      <> ", "
+      <> to_string_tree(right)
+      <> ")"
+  }
+}

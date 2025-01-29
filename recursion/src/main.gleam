@@ -2,6 +2,8 @@ import gleam/bool
 import gleam/int
 import gleam/io
 import gleam/string
+
+//import recursive.{type Tree, add_to_tree}
 import recursive
 
 pub fn sum(list: List(Int), total: Int) -> Int {
@@ -241,4 +243,23 @@ pub fn main() {
     <> " Non Empty List: "
     <> int.to_string(recursive.ch3_product([2, 3, 4, 10])),
   )
+
+  let tree =
+    recursive.Leaf
+    |> recursive.insert(10)
+    |> recursive.insert(5)
+    |> recursive.insert(15)
+    |> recursive.insert(3)
+    |> recursive.insert(7)
+    |> recursive.insert(12)
+    |> recursive.insert(18)
+
+  io.println("Chapter 4: Reverse Inorder Traversal: ")
+  recursive.ch4_reverse_inorder_traverse(tree)
+
+  io.println("Starting Tree: " <> recursive.to_string_tree(tree))
+
+  let expaned_tree = recursive.ch4_add_one_depthlevel_in_tree(tree)
+
+  io.println("Expanded Tree: " <> recursive.to_string_tree(expaned_tree))
 }

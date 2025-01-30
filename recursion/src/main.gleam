@@ -262,4 +262,29 @@ pub fn main() {
   let expaned_tree = recursive.ch4_add_one_depthlevel_in_tree(tree)
 
   io.println("Expanded Tree: " <> recursive.to_string_tree(expaned_tree))
+
+  io.println(
+    "Chapter 5: Binary Search: " <> recursive.ch5_binary_search(tree, 10),
+  )
+  io.println(
+    "Chapter 5: Binary Search: " <> recursive.ch5_binary_search(tree, 18),
+  )
+  io.println(
+    "Chapter 5: Binary Search: " <> recursive.ch5_binary_search(tree, 15),
+  )
+  io.println(
+    "Chapter 5: Binary Search: " <> recursive.ch5_binary_search(tree, 7),
+  )
+  io.println(
+    "Chapter 5: Binary Search: " <> recursive.ch5_binary_search(tree, 3),
+  )
+  io.println(
+    "Chapter 5: Binary Search: " <> recursive.ch5_binary_search(tree, 5),
+  )
+  io.println(
+    "Chapter 5: Binary Search: " <> recursive.ch5_binary_search(tree, 12),
+  )
+  io.println(
+    "Chapter 5: Binary Search: " <> recursive.ch5_binary_search(tree, 100),
+  )
 }

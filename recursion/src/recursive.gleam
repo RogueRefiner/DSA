@@ -62,7 +62,7 @@ fn product_loop(int_list: List(Int), aggregator: Int) -> Int {
   }
 }
 
-pub fn ch4_reverse_inorder_traverse(tree: Tree) {
+pub fn ch4_reverse_inorder_traverse(tree: Tree) -> String {
   case tree {
     Leaf -> ""
     Branch(root, left, right) -> {
@@ -73,7 +73,7 @@ pub fn ch4_reverse_inorder_traverse(tree: Tree) {
   }
 }
 
-pub fn ch4_add_one_depthlevel_in_tree(tree: Tree) {
+pub fn ch4_add_one_depthlevel_in_tree(tree: Tree) -> Tree {
   case tree {
     Leaf -> Branch(-1, Leaf, Leaf)
     Branch(root, left, right) -> {
@@ -113,5 +113,22 @@ pub fn to_string_tree(tree: Tree) -> String {
       <> ", "
       <> to_string_tree(right)
       <> ")"
+  }
+}
+
+pub fn ch5_binary_search(tree: Tree, to_find: Int) -> String {
+  case tree {
+    Leaf -> "Not Found: " <> int.to_string(to_find)
+    Branch(root, left, right) -> {
+      case root == to_find {
+        True -> "Found: " <> int.to_string(to_find)
+        False -> {
+          case root < to_find {
+            True -> ch5_binary_search(right, to_find)
+            False -> ch5_binary_search(left, to_find)
+          }
+        }
+      }
+    }
   }
 }

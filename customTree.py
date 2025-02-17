@@ -90,6 +90,113 @@ class Tree:
         if current_node.right:
             return self.get_parent(current_node.right, value_to_remove)
 
+    def get_all_nodes(self, current_node: Node, nodes: list[Node] = None) -> list[Node] | None:
+        if nodes is None:
+            nodes = []
+
+        nodes.append(current_node.value)
+
+        if current_node.left:
+            self.get_all_nodes(current_node.left, nodes)
+        if current_node.right:
+            self.get_all_nodes(current_node.right, nodes)
+
+        return nodes
+
+    def __build_heap_tree(self, nodes: list[Node]) -> Self:
+        root_node = Node(nodes.pop(0))
+        len_nodes = len(nodes)
+        heap_tree = Tree(root_node)
+
+        while len(nodes) >= len_nodes//2 + 1:
+            new_node = Node(nodes.pop(0))
+            if root_node.left is None:
+                heap_tree.add_node(root_node.value, new_node.value, Position.LEFT)
+                root_node.add_left_child(new_node.value)
+                parent_node = new_node
+
+            elif parent_node.left is None:
+                heap_tree.add_node(parent_node.value, new_node.value, Position.LEFT)
+                parent_node.add_left_child(new_node.value)
+            elif parent_node.right is None:
+                heap_tree.add_node(parent_node.value, new_node.value, Position.RIGHT)
+                parent_node.add_right_child(new_node.value)
+            else:
+                parent_node = parent_node.left
+                if parent_node.left is None:
+                    heap_tree.add_node(parent_node.value, new_node.value, Position.LEFT)
+                    parent_node.add_left_child(new_node.value)
+                elif parent_node.right is None:
+                    heap_tree.add_node(parent_node.value, new_node.value, Position.RIGHT)
+                    parent_node.add_right_child(new_node.value)
+
+        parent_node = heap_tree.root
+        while len(nodes) > 0:
+            new_node = Node(nodes.pop(0))
+            if parent_node.left is None:
+                parent_node.add_left_child(new_node.value)
+            elif parent_node.right is None:
+                parent_node.add_right_child(new_node.value)
+            else:
+                if parent_node == heap_tree.root:
+                    parent_node = parent_node.right
+                else:
+                    parent_node = parent_node.left
+
+                if parent_node.right is None:
+                    parent_node.add_right_child(new_node.value)
+                elif parent_node.left is None:
+                    parent_node.add_left_child(new_node.value)
+
+        return heap_tree
+
+    def max_heap_sorting(self, current_node: Node = None) -> Self:
+        if current_node is None:
+            current_node = self.root
+
+        nodes = sorted(self.get_all_nodes(current_node), reverse=True)
+        return self.__build_heap_tree(nodes)
+
+    def min_heap_sorting(self, current_node: Node = None) -> Self:
+        if current_node is None:
+            current_node = self.root
+
+        nodes = sorted(self.get_all_nodes(current_node))
+        return self.__build_heap_tree(nodes)
+
+    def get_depth(self, current_node: Node = None, level: int = 0, max_depth: int = 0) -> int:
+        if current_node is None:
+            current_node = self.root
+
+        if level > max_depth:
+            max_depth = level
+
+        if current_node.left:
+            max_depth = self.get_depth(current_node.left, level+1, max_depth)
+        if current_node.right:
+            max_depth = self.get_depth(current_node.right, level+1, max_depth)
+
+        return max_depth
+
+    def print_preorder_traversal(self, current_node: Node = None) -> str:
+        return self.__str__(current_node)
+
+    def print_postorder_traversal(self, current_node: Node, level: int = 0, child_type: str = "Root") -> str:
+        if current_node is None:
+            return "End of Tree reached"
+
+        self.print_postorder_traversal(current_node.left, level+1, "Left")
+        self.print_postorder_traversal(current_node.right, level+1, "Right")
+        print(f'{" "*level}Level: {level}, {child_type} Child: {current_node}')
+
+    def print_inorder_traversal(self, current_node: Node = None, level: int = 0, child_type: str = "Root") -> str:
+        if current_node is None:
+            return "End of Tree reached"
+
+        self.print_inorder_traversal(current_node.left, level+1, "Left")
+        print(f'{" "*level}Level: {level}, {child_type} Child: {current_node}')
+        self.print_inorder_traversal(current_node.right, level+1, "Right")
+
 
 if __name__ == "__main__":
     node: Node = Node(42)
@@ -97,9 +204,12 @@ if __name__ == "__main__":
     node.add_left_child(37)
     node.add_right_child(89)
     tree.add_node(37, 87, Position.LEFT)
-    tree.add_node(87, 102, Position.RIGHT)
     tree.add_node(89, 1, Position.LEFT)
     tree.add_node(89, 2, Position.RIGHT)
+    tree.add_node(87, 102, Position.RIGHT)
+    tree.add_node(102, 277, Position.RIGHT)
+    tree.add_node(102, 96, Position.LEFT)
+    tree.add_node(96, 72, Position.LEFT)
 
     # print(tree.find_node(tree.root, 37))
     # print(tree.find_node(tree.root, 89))
@@ -113,5 +223,12 @@ if __name__ == "__main__":
     # tree.find_node(tree.root, 89).remove_child(Position.BOTH)
     # tree.remove_node(89)
     # tree.remove_node(37)
-
+    # print(tree.get_depth())
+    # print(tree.min_heap_sorting())
+    # print(tree.max_heap_sorting())
     print(tree)
+
+    # print("Traversal: ")
+    # tree.print_preorder_traversal()
+    # tree.print_postorder_traversal(tree.root)
+    # tree.print_inorder_traversal(tree.root)
